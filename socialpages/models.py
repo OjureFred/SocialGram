@@ -1,4 +1,5 @@
 from django.db import models
+import datetime as dt
 
 # Create your models here.
 class Editor(models.Model):
@@ -28,3 +29,16 @@ class Post(models.Model):
     editor = models.ForeignKey(Editor, on_delete = models.DO_NOTHING)
     tags = models.ManyToManyField(tags)
     pub_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+    
+    @classmethod
+    def today_posts(cls):
+        today = dt.date.today()
+        posts = cls.objects.filter(pub_date=today)
+        return posts
+    
+    @classmethod
+    def days_post(cls, date):
+        posts = cls.objects.filter(pub_date = date)

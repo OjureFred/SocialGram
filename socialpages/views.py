@@ -5,4 +5,4 @@ from django.http import HttpResponse
 
 # Create your views here.
 def main_page(request):
-    return HttpResponse('Welcome to SocialGram. Where you share your stories as they unfold')
+    return render(request, 'main_page.html')

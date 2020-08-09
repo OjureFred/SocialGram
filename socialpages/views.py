@@ -43,6 +43,7 @@ def search_results(request):
         context = {'message': message}
         return render(request, 'all_social/search.html', context)
 
+@login_required(login_url='/accounts/login/')
 def post(request, post_id):
     try:
         post = Post.objects.get(id=post_id)

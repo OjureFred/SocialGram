@@ -5,35 +5,51 @@
 {{block.super}}
 
 <div class="container">
-    {% for post in all_posts %}
-
     <div class="row">
-        <div class="col-xs-6 col-sm-6 col-lg-6">
-            <h2 class="text-center">{{ post.title}}</h2>
+       
         </div>
 
-        <!-- Display post image-->
+    <!-- Display post image-->
         <div class="col-xs-6 col-sm-6 col-lg-6">
+            {% for post in all_posts %}
+            Posted by: @{{post.editor}}
             <img src="{{post.post_image.url}}" class="img-responsive" alt="Image">
-        </div>
-    </div>
+            <h4><strong>{{post.title}}</strong></h4>
+            <p>{{post.post}}</p>
+            <p>Posted on: {{post.pub_date}}</p>
+            <br/>
+            <p>Tags:{{post.tags}}</p>
+            <hr />
 
-    {% empty %}
-    <div class="row">
-        <h2 class="text-center"> There are no posts</h2>
+            {% empty %}
+            <div class="row">
+                <h2 class="text-center"> There are no posts</h2>
+             </div>
+            {% endfor %}
+        </div>
+        <div class="col-xs-3 col-sm-3 col-lg-3 user-details">
+
+            <h4 class="text-center"><strong>SocialGram User Details:</strong></h4>
+            <hr />
+            <p>Name: {{authenticated_user.name}}</p>
+            <p>Email: {{authenticated_user.email}}</p>
+            <hr />
+           <p> Please subscribe to update on new posts</p>
+            <form  action="{%url 'main_page'%}" method="post">
+                
+                {%csrf_token%}
+            
+                {% bootstrap_form postForm layout='inline' %}
+                <input type="submit" value="Subscribe">
+              </form>
+        </div>
+        
     </div>
-    {% endfor %}
-    
 </div>
 
 
 <div class="container-fluid">
 
-    <form  action="{%url 'main_page'%}" method="post">
-      {%csrf_token%}
-  
-      {% bootstrap_form postForm layout='inline' %}
-      <input type="submit" value="Subscribe">
-    </form>
+   
     
     {% endblock %}

@@ -4,3 +4,7 @@
          url('../static/fonts/abc.ttf') format("truetype");
   }
   
+.user-details {
+    background-color: lightsteelblue;
+}
+

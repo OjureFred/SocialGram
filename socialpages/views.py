@@ -26,3 +26,12 @@ def search_results(request):
         message = "You haven't searched for any term"
         context = {'message': message}
         return render(request, 'all_social/search.html', context)
+
+def post(request, post_id):
+    try:
+        post = Post.objects.get(id=post_id)
+    except DoesNotExist:
+        raise Http404()
+
+    context = {"post": post}
+    return render(request, 'all-social/post.html', context)

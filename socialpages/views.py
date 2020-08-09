@@ -5,7 +5,7 @@ import datetime as dt
 
 # Other imports
 from .models import Post, PostRecipients
-from .forms import PostForm
+from .forms import PostForm, NewPostForm
 from .email import send_welcome_email
 
 # Create your views here.
@@ -53,3 +53,20 @@ def post(request, post_id):
 
     context = {"post": post}
     return render(request, 'all-social/post.html', context)
+
+@login_required(login_url='/accounts/login')
+def new_post(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.editor = current_user
+            post.save()
+        return redirect('main_page')
+    
+    else:
+        form = NewPostForm()
+    
+    context = {"form": form}
+    return render(request, 'new_post.html', context)

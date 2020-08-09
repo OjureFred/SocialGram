@@ -29,6 +29,7 @@ class Post(models.Model):
     editor = models.ForeignKey(Editor, on_delete = models.DO_NOTHING)
     tags = models.ManyToManyField(tags)
     pub_date = models.DateTimeField(auto_now_add=True)
+    post_image = models.ImageField(upload_to = 'posts/')
 
     def __str__(self):
         return self.title

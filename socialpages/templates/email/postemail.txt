@@ -1,0 +1,3 @@
+Hello {{name}}
+
+Welcome to the SocialGram social network. You will find the most exciting news about everything around you.

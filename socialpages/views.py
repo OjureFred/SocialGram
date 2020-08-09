@@ -5,6 +5,7 @@ import datetime as dt
 # Other imports
 from .models import Post, PostRecipients
 from .forms import PostForm
+from .email import send_welcome_email
 
 # Create your views here.
 def main_page(request):
@@ -18,6 +19,8 @@ def main_page(request):
             email = form.cleaned_data['email']
             recipient = PostRecipients(name=name, email=email)
             recipient.save()
+            send_welcome_email(name, email)
+
             HttpResponseRedirect('main_page')
     else:
         form = PostForm()

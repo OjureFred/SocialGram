@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 import datetime as dt
 
 # Other imports
-from .models import Post
+from .models import Post, PostRecipients
 from .forms import PostForm
 
 # Create your views here.
@@ -14,7 +14,11 @@ def main_page(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            print('Valid')
+            name = form.cleaned_data['your_name']
+            email = form.cleaned_data['email']
+            recipient = PostRecipients(name=name, email=email)
+            recipient.save()
+            HttpResponseRedirect('main_page')
     else:
         form = PostForm()
 

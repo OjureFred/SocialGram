@@ -10,6 +10,11 @@
         <div class="col-xs-6 col-sm-6 col-lg-6">
             <h2 class="text-center">{{ post.title}}</h2>
         </div>
+
+        <!-- Display post image-->
+        <div class="col-xs-6 col-sm-6 col-lg-6">
+            <img src="{{post.post_image.url}}" class="img-responsive" alt="Image">
+        </div>
     </div>
 
     {% empty %}
@@ -17,6 +22,6 @@
         <h2 class="text-center"> There are no posts</h2>
     </div>
     {% endfor %}
-    
+
 </div>
 {% endblock %}

@@ -4,12 +4,21 @@ import datetime as dt
 
 # Other imports
 from .models import Post
+from .forms import PostForm
 
 # Create your views here.
 def main_page(request):
     date = dt.date.today()
     all_posts = Post.objects.all()
-    context = {'date': date, 'all_posts': all_posts}
+
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            print('Valid')
+    else:
+        form = PostForm()
+
+    context = {'date': date, 'all_posts': all_posts, 'postForm': form}
     return render(request, 'main_page.html', context)
 
 def search_results(request):

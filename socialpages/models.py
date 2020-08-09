@@ -41,4 +41,9 @@ class Post(models.Model):
     
     @classmethod
     def days_post(cls, date):
-        posts = cls.objects.filter(pub_date = date)
+        posts = cls.objects.filter(pub_date=date)
+    
+    @classmethod
+    def search_by_title(cls, search_term):
+        posts = cls.objects.filter(title__icontains=search_term)
+        return posts

@@ -11,3 +11,18 @@ def main_page(request):
     all_posts = Post.objects.all()
     context = {'date': date, 'all_posts': all_posts}
     return render(request, 'main_page.html', context)
+
+def search_results(request):
+
+    if 'post' in request.GET and request.GET['post']:
+        search_term = request.GET.get('post')
+        searched_posts = Post.search_by_title(search_term)
+        message = f"{search_term}"
+        
+        context = {'message': message, 'posts': searched_posts}
+        return render(request, 'all-social/search.html', context)
+    
+    else:
+        message = "You haven't searched for any term"
+        context = {'message': message}
+        return render(request, 'all_social/search.html', context)

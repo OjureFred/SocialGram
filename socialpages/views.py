@@ -9,6 +9,7 @@ from .forms import PostForm, NewPostForm
 from .email import send_welcome_email
 
 # Create your views here.
+@login_required(login_url='/accounts/login')
 def main_page(request):
     date = dt.date.today()
     all_posts = Post.objects.all()
